@@ -478,7 +478,7 @@ public:
             const CLType& cl,
             const JUType& ju,
             const IntParamType& int_param)
-        : base_t(isd, intr, kopt, thr, maxit, nx, nlp, ia, y.rows(), vp.size(), mp.size(), dev0, w, vp, mp, cl, ju, int_param)
+        : base_t(isd, intr, kopt, thr, maxit, nx, nlp, ia, y.rows(), vp.size(), dev0, w, vp, mp, cl, ju, int_param)
         , nc_(y.cols())
         , exmx_(int_param.exmx)
         , exmn_(-exmx_)
@@ -486,7 +486,7 @@ public:
         , emax_(1.0 / emin_)
         , b_(vp.size() + 1, y.cols())
         , bs_(vp.size() + 1, y.cols())
-        , p_(mp.size() + 1, y.cols())
+        , p_(mp.size(), y.cols())
         , q_(y.rows(), y.cols())
         , sxp_(y.rows())
         , y_(y.data(), y.rows(), y.cols())
@@ -1095,6 +1095,7 @@ private:
     // current views of column for given class ic (see set_class())
     Eigen::Map<vec_t> bs_ic_;
     Eigen::Map<vec_t> b_ic_;
+    Eigen::Map<vec_t> p_ic_;
     Eigen::Map<vec_t> q_ic_;
     Eigen::Map<const vec_t> y_ic_;
     Eigen::Map<vec_t> xv_ic_;
